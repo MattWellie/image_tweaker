@@ -8,7 +8,7 @@ import logging
 
 
 """
-takes an input image (RGB - JPEG) and a directory of images with png images (RGBA)
+See README, I'm signing off for the night
 """
 
 
