@@ -213,7 +213,7 @@ class PictureRejigger:
         :return:
         """
 
-        range_x, range_y = map(range(self.blurred_image.size))
+        range_x, range_y = map(range, self.blurred_image.size)
 
         iterations = 0
 
