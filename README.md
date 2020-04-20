@@ -4,7 +4,7 @@ Takes an image with a valid RGB pixel format (JPEG), and a directory of addition
 
 The idea if to create an inflated blank image of the same proportions as the original image
 
-The original image is blurred for a bit of smoothness (the logice that made this relevant has now been removed), and random sample pixels from it
+The original image is blurred for a bit of smoothness (the logic that made this relevant has now been removed), and randomly sample pixels from it
 
 Test the pixels using RMS logic to find the most similar image of the available PNGs, and stick that in a position similar to the original pixel
 
@@ -13,6 +13,11 @@ Eventually the idea is to have the original image vaguely recreated using PNG th
 
 
 Concept shamelessly borrowed from https://github.com/STulling/ImageReconstructor and I've no doubt that this is a shitty implementation, I've never done anything with images before so this is a Social Distancing instigated hackaround 
+
+Current version is manual_pixel_picker_rgb_weighting.py
+For this version I've parsed the input images as a numpy array, removed any pixels which are transparent, or where the RGB values are equal (creating greys). Of the remaining pixels I take the most common other pixel. This works for the pokemon images as there is typically one dominant colour. Can't say how transferrable this would be to complex PNGs... but that would defeat the aim of colour substitution really, so dominant coloured inputs should be used.
+
+It also has a level of weighting on the image comparison method, making Green the most important RGB value, then Red, then Blue. In theory this is more representative of human vision, so should produce an input more like you'd expect. It doesn't address the other RMS issues, e..g adjusting for brightness, or improving on RMS as a comparison method.
 
 
 Scripts:
