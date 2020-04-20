@@ -20,6 +20,12 @@ For this version I've parsed the input images as a numpy array, removed any pixe
 It also has a level of weighting on the image comparison method, making Green the most important RGB value, then Red, then Blue. In theory this is more representative of human vision, so should produce an input more like you'd expect. It doesn't address the other RMS issues, e..g adjusting for brightness, or improving on RMS as a comparison method.
 
 
+
+Improvement idea: identify the number of different pixel colours in the input image, and multiply by the number of reference images. Create a threshold where if the total is low, use the dictionary format, above a certain threshold, do each comparison live. Alternatively select the top X% of pixels by commonality in the input image, and save results for those. IDK, something that balances runtime speed with system resource consumption.
+
+Or threads - would be good to spool off a number of threads, each of which could return 1000 tuples of ((X,Y), substitute_image) - only create the image as a final step from component threads
+
+
 Scripts:
 
 Initial approach (covering first 2 scripts) used the approach of squashing the PNG images into one pixel as a mean value, and then comparing that against a select pixel from the input image. That average got some results, but everything trended towards brown.
