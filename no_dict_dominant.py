@@ -23,9 +23,9 @@ def get_dominant_colour_from_image(image_path):
     color_thief = ColorThief(image_path)
 
     # ok, so this will extend runtime by... a lot
-    dominant_color = color_thief.get_palette(quality=1)
-    # dominant_color = color_thief.get_color(quality=1)
+    dominant_color = color_thief.get_color(quality=1)
     return dominant_color
+
 
 class PictureRejigger:
     """
@@ -296,22 +296,13 @@ class PictureRejigger:
 
         self.logger.debug(f"comparing {input_rgb} to all images")
 
-        this_pixel_check = dict()
+        image_path_keys = self.pixel_rgb.keys()
 
-        # check if already seen, otherwise update
-        for image_path in self.pixel_rgb.keys():
-
-            # this now runs over a palette from an image, not a single instance - multiple comparisons
-            # Could backfire horribly
-            difference = min([self.get_colour_difference(
-                input_rgb, image_rgb
-            ) for image_rgb in self.pixel_rgb[image_path]])
-            self.logger.debug(f"calculated difference from {image_path}: {difference}")
-            this_pixel_check[image_path] = difference
+        this_pixel_check = {image_path: self.get_colour_difference(input_rgb, self.pixel_rgb[image_path]) for image_path in image_path_keys}
 
         # intially just assume there are no ties - find the best fitting key
         best_image = min(
-            self.pixel_rgb.keys(),
+            image_path_keys,
             key=(lambda k: this_pixel_check[k]),
         )
         return best_image
