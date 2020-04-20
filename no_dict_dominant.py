@@ -8,16 +8,14 @@ import logging
 
 
 """
-takes an input image (RGB - JPEG) and a directory of images with png images (RGBA)
+See README, I'm signing off for the night
 """
 
 
 def get_dominant_colour_from_image(image_path):
     """
-    for each image, squash into one pixel and get that value
-    create an entry in the dictionary with filepath: { rgb: value, checked: defaultdict(float)}
-
-    that second layer default dict can take a tuple of RGB as a key, and point to the pre-calculated RMS difference
+    use color_thief to generate a palette of dominant colours from input image.
+    Return list of all those palette colours (not a good approach)
     :return:
     """
     color_thief = ColorThief(image_path)
@@ -45,7 +43,7 @@ class PictureRejigger:
     Save the contrast as a value in the image dictionary (image_path: (rgb): contrast, (rgb2): contrast2) to reduce
     future lookups
 
-    take the image that matched the best, and paste that into the new image at position x*4,y*4
+    take the image that matched the best, and paste that into the new image at a similar position
 
     """
 
